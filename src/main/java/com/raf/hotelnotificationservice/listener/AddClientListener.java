@@ -23,7 +23,9 @@ public class AddClientListener {
     @JmsListener(destination = "${destination.addClient}", concurrency = "5-10")
     public void addClient(Message message) throws JMSException {
         System.out.println("Primljena poruka iz Queue-a");
-        //ClientCreateDto clientCreateDto = messageHelper.getMessage(message, ClientCreateDto.class);
+        // TODO: implementirati 2 queuea za managera i klijenta
+        ClientCreateDto clientCreateDto = messageHelper.getMessage(message, ClientCreateDto.class);
+        System.out.println(clientCreateDto);
         // nakon sto je getMessage konvertovao JSON u objekat, dodajemo porudzbinu
     }
 }
