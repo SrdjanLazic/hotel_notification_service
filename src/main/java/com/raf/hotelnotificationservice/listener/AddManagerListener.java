@@ -22,6 +22,5 @@ public class AddManagerListener {
     @JmsListener(destination = "${destination.addManager}", concurrency = "5-10")
     public void addManager(Message message) throws JMSException {
         ManagerCreateDto managerCreateDto = messageHelper.getMessage(message, ManagerCreateDto.class);
-        //emailService.sendSimpleMessage("srdjanlazic1996@gmail.com", "Radi!", "Najs, radi ovo!");
     }
 }
