@@ -10,9 +10,9 @@ public class VerifyEmailNotification extends Notification {
     private Long id;
     private String message;
 
-    public VerifyEmailNotification(String name, String lastName, String email) {
-        super(name, lastName, email);
-        this.message = String.format("Hi, %s %s. To complete your registration, please click the following link: http://localhost:8080/api/client/verifyMail/%s.", name, lastName, email);
+    public VerifyEmailNotification(String name, String lastName, String email, String role) {
+        super(name, lastName, email, role);
+        this.message = String.format("Hi, %s %s. To complete your registration, please click the following link: http://localhost:8080/api/%s/verifyMail/%s.", name, lastName, role, email);
     }
 
     public VerifyEmailNotification() {

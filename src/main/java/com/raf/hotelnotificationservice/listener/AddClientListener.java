@@ -27,7 +27,8 @@ public class AddClientListener {
     @JmsListener(destination = "${destination.addClient}", concurrency = "5-10")
     public void addClient(Message message) throws JMSException {
         ClientCreateDto clientCreateDto = messageHelper.getMessage(message, ClientCreateDto.class);
-        Notification notification = new VerifyEmailNotification(clientCreateDto.getFirstName(), clientCreateDto.getLastName(), clientCreateDto.getEmail());
+        String role = "client";
+        Notification notification = new VerifyEmailNotification(clientCreateDto.getFirstName(), clientCreateDto.getLastName(), clientCreateDto.getEmail(), role);
         notificationRepository.save(notification);
         emailService.sendSimpleMessage(clientCreateDto.getEmail(), "Email verification", notification);
     }

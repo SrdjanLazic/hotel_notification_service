@@ -12,11 +12,14 @@ public class Notification {
     private String firstName;
     private String lastName;
     private String email;
+    private String role;
 
-    public Notification(String name, String lastName, String email) {
+    public Notification(String name, String lastName, String email, String role) {
         this.firstName = name;
         this.lastName = lastName;
         this.email = email;
+        this.message = message;
+        this.role = role;
     }
 
     public Notification() {
@@ -60,5 +63,13 @@ public class Notification {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
