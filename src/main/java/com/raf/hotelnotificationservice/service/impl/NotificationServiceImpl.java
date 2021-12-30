@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class NotificationServiceImpl implements NotificationService {
@@ -23,8 +25,15 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Page<NotificationDto> findAll(Pageable pageable) {
-        System.out.println("Usao u find all metodu");
         return notificationRepository.findAll(pageable)
                 .map(notificationMapper::notificationToNotificationDto);
     }
+
+    @Override
+    public Optional<NotificationDto> findMyNotifications(String email) {
+        return notificationRepository.findNotificationByEmail(email)
+                .map(notificationMapper::notificationToNotificationDto);
+    }
+
+
 }

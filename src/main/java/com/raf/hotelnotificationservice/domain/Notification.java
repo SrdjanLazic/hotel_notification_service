@@ -1,5 +1,7 @@
 package com.raf.hotelnotificationservice.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,20 +10,20 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String message;
+    @ManyToOne(optional = false)
+    private NotificationType type;
     private String email;
-    private String role;
 
-    public Notification(String email, String role) {
+    public Notification(String email, NotificationType type) {
         this.email = email;
-        this.role = role;
+        this.type = type;
     }
 
     public Notification() {
     }
 
     public String getMessage() {
-        return message;
+        return getType().getMessage();
     }
 
     public Long getId() {
@@ -32,10 +34,6 @@ public class Notification {
         this.id = id;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -44,11 +42,11 @@ public class Notification {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+    public NotificationType getType() {
+        return type;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setType(NotificationType type) {
+        this.type = type;
     }
 }
