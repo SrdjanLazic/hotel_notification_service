@@ -9,16 +9,11 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
-    private String firstName;
-    private String lastName;
     private String email;
     private String role;
 
-    public Notification(String name, String lastName, String email, String role) {
-        this.firstName = name;
-        this.lastName = lastName;
+    public Notification(String email, String role) {
         this.email = email;
-        this.message = message;
         this.role = role;
     }
 
@@ -39,22 +34,6 @@ public class Notification {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {

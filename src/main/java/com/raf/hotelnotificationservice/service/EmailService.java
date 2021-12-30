@@ -19,7 +19,6 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
-        System.out.println("\n\n\n\n\nMESSAGE?"+notification.getMessage());
         message.setText(notification.getMessage());
         mailSender.send(message);
     }
