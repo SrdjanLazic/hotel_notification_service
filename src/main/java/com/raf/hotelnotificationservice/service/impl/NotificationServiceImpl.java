@@ -2,6 +2,7 @@ package com.raf.hotelnotificationservice.service.impl;
 
 import com.raf.hotelnotificationservice.domain.Notification;
 import com.raf.hotelnotificationservice.dto.ClientDto;
+import com.raf.hotelnotificationservice.dto.ManagerDto;
 import com.raf.hotelnotificationservice.dto.NotificationDto;
 import com.raf.hotelnotificationservice.exception.NotFoundException;
 import com.raf.hotelnotificationservice.mapper.NotificationMapper;
@@ -43,7 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public Page<NotificationDto> findMyNotifications(Long id, Pageable pageable) {
+    public Page<NotificationDto> findClientNotifications(Long id, Pageable pageable) {
         ResponseEntity<ClientDto> clientDtoResponseEntity = null;
         try {
             clientDtoResponseEntity = userServiceRestTemplate.exchange("/client/"
@@ -56,6 +57,34 @@ public class NotificationServiceImpl implements NotificationService {
         }
 
         String email = clientDtoResponseEntity.getBody().getEmail();
+
+
+        List<Notification> allNotifications = notificationRepository.findAll();
+        List<NotificationDto> foundNotifications = new ArrayList<>();
+
+        for(Notification notification : allNotifications){
+            if (notification.getEmail().equalsIgnoreCase(email)){
+                foundNotifications.add(notificationMapper.notificationToNotificationDto(notification));
+            }
+        }
+        Page<NotificationDto> notificationDtoPage = new PageImpl<>(foundNotifications);
+        return notificationDtoPage;
+    }
+
+    @Override
+    public Page<NotificationDto> findManagerNotifications(Long id, Pageable pageable) {
+        ResponseEntity<ManagerDto> managerDtoResponseEntity = null;
+        try {
+            managerDtoResponseEntity = userServiceRestTemplate.exchange("/manager/"
+                    + id, HttpMethod.GET, null, ManagerDto.class);
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND))
+                throw new NotFoundException(String.format("Projection with id: %d not found.", id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String email = managerDtoResponseEntity.getBody().getEmail();
 
 
         List<Notification> allNotifications = notificationRepository.findAll();

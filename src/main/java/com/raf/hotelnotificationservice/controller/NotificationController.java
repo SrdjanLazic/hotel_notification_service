@@ -28,12 +28,18 @@ public class NotificationController {
         return new ResponseEntity<>(notificationService.findAll(pageable), HttpStatus.OK);
     }
 
-    // TODO skloni role_admin
     @GetMapping("/client/{id}")
     @CheckSecurity(roles = {"ROLE_CLIENT"})
-    public ResponseEntity<Page<NotificationDto>> getMyNotifications(@RequestHeader("Authorization") String authorization,
+    public ResponseEntity<Page<NotificationDto>> getClientNotifications(@RequestHeader("Authorization") String authorization,
                                                                     @PathVariable("id") Long id, Pageable pageable) {
-        return new ResponseEntity<>(notificationService.findMyNotifications(id, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(notificationService.findClientNotifications(id, pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/client/{id}")
+    @CheckSecurity(roles = {"ROLE_MANAGER"})
+    public ResponseEntity<Page<NotificationDto>> getManagerNotifications(@RequestHeader("Authorization") String authorization,
+                                                                    @PathVariable("id") Long id, Pageable pageable) {
+        return new ResponseEntity<>(notificationService.findManagerNotifications(id, pageable), HttpStatus.OK);
     }
 
 }

@@ -10,7 +10,9 @@ public interface NotificationService {
 
     Page<NotificationDto> findAll(Pageable pageable);
 
-    Page<NotificationDto> findMyNotifications(Long id, Pageable pageable);
+    Page<NotificationDto> findClientNotifications(Long id, Pageable pageable);
+
+    Page<NotificationDto> findManagerNotifications(Long id, Pageable pageable);
 
 
 }
