@@ -15,14 +15,11 @@ public class NotificationMapper {
     }
 
     public NotificationDto notificationToNotificationDto(Notification notification) {
-        System.out.println("Usao u mapper");
-        System.out.println(notification);
         NotificationDto notificationDto = new NotificationDto();
         notificationDto.setEmail(notification.getEmail());
         notificationDto.setId(notification.getId());
         notificationDto.setMessage(notification.getMessage());
         notificationDto.setType(notification.getType());
-        System.out.println(notificationDto);
         return notificationDto;
     }
 }

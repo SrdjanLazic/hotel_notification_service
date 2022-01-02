@@ -10,7 +10,6 @@ import java.util.Optional;
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
     //Koristimo ga za arhivu posto nam treba iskljucivo save
-    Optional<Notification> findNotificationByEmail(String email);
 
 }
 

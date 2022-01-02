@@ -10,6 +10,7 @@ public interface NotificationService {
 
     Page<NotificationDto> findAll(Pageable pageable);
 
-    Optional<NotificationDto> findMyNotifications(String email);
+    Page<NotificationDto> findMyNotifications(Long id, Pageable pageable);
+
 
 }
