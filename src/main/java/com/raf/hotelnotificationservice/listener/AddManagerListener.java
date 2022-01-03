@@ -23,10 +23,12 @@ public class AddManagerListener {
     private NotificationRepository notificationRepository;
     private NotificationTypeRepository notificationTypeRepository;
 
-    public AddManagerListener(MessageHelper messageHelper, EmailService emailService, NotificationRepository notificationRepository) {
+    public AddManagerListener(MessageHelper messageHelper, EmailService emailService, NotificationRepository notificationRepository,
+                              NotificationTypeRepository notificationTypeRepository) {
         this.messageHelper = messageHelper;
         this.emailService = emailService;
         this.notificationRepository = notificationRepository;
+        this.notificationTypeRepository = notificationTypeRepository;
     }
 
     @JmsListener(destination = "${destination.addManager}", concurrency = "5-10")

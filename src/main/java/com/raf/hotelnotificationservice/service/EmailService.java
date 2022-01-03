@@ -12,8 +12,6 @@ public class EmailService {
     @Autowired
     public JavaMailSender mailSender;
 
-    // TODO: mislim da cemo ovde umesto obicnog string texta, slati objekat tipa Notification, ili tako nesto
-
     public void sendSimpleMessage(String to, String subject, Notification notification) {
 
         SimpleMailMessage message = new SimpleMailMessage();

@@ -35,7 +35,7 @@ public class NotificationController {
         return new ResponseEntity<>(notificationService.findClientNotifications(id, pageable), HttpStatus.OK);
     }
 
-    @GetMapping("/client/{id}")
+    @GetMapping("/manager/{id}")
     @CheckSecurity(roles = {"ROLE_MANAGER"})
     public ResponseEntity<Page<NotificationDto>> getManagerNotifications(@RequestHeader("Authorization") String authorization,
                                                                     @PathVariable("id") Long id, Pageable pageable) {

@@ -23,6 +23,7 @@ public class TestDataRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         notificationTypeRepository.save(new NotificationType(Type.EMAIL_VERIFICATION,"Hi, %s %s. To complete your registration, please click the following link: http://localhost:8080/api/%s/verifyMail/%s."));
+        notificationTypeRepository.save(new NotificationType(Type.PASSWORD_RESET,"To change your password, please click the following link: http://localhost:8080/api/%s/changePassword/%s."));
     }
 
 }
