@@ -29,8 +29,8 @@ public class ChangeClientPasswordListener {
     }
 
     // TODO: mozda da se naprave 2 queuea ako nas ne bude mrzelo
-    @JmsListener(destination = "${destination.addClient}", concurrency = "5-10")
-    public void addClient(Message message) throws JMSException, NotFoundException {
+    @JmsListener(destination = "${destination.passwordClient}", concurrency = "5-10")
+    public void passwordClient(Message message) throws JMSException, NotFoundException {
         ClientPasswordDto clientPasswordDto = messageHelper.getMessage(message, ClientPasswordDto.class);
 
         String role = "client";
