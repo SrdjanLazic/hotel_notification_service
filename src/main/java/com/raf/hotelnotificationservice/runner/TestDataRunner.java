@@ -1,7 +1,9 @@
 package com.raf.hotelnotificationservice.runner;
 
+import com.raf.hotelnotificationservice.domain.Notification;
 import com.raf.hotelnotificationservice.domain.NotificationType;
 import com.raf.hotelnotificationservice.domain.Type;
+import com.raf.hotelnotificationservice.domain.VerifyEmailNotification;
 import com.raf.hotelnotificationservice.repository.NotificationRepository;
 import com.raf.hotelnotificationservice.repository.NotificationTypeRepository;
 import javassist.NotFoundException;

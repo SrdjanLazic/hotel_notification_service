@@ -1,10 +1,12 @@
 package com.raf.hotelnotificationservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.raf.hotelnotificationservice.domain.NotificationType;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.Instant;
 
 public class NotificationDto {
 
@@ -12,6 +14,8 @@ public class NotificationDto {
     private String message;
     private String email;
     private NotificationType type;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy",timezone = "GMT+1")
+    private Instant instant;
 
     public NotificationDto() {
     }
@@ -46,5 +50,13 @@ public class NotificationDto {
 
     public void setType(NotificationType type) {
         this.type = type;
+    }
+
+    public Instant getInstant() {
+        return instant;
+    }
+
+    public void setInstant(Instant instant) {
+        this.instant = instant;
     }
 }

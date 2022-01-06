@@ -42,4 +42,19 @@ public class NotificationController {
         return new ResponseEntity<>(notificationService.findManagerNotifications(id, pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/filter/email={email}")
+    @CheckSecurity(roles = {"ROLE_ADMIN"})
+    public ResponseEntity<Page<NotificationDto>> getNotificationsByEmail(@RequestHeader("Authorization") String authorization,
+                                                                         @PathVariable("email") String email,
+                                                                          Pageable pageable) {
+        return new ResponseEntity<>(notificationService.findByEmail(email, pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/filter/type={type}")
+    @CheckSecurity(roles = {"ROLE_ADMIN"})
+    public ResponseEntity<Page<NotificationDto>> getNotificationsByType(@RequestHeader("Authorization") String authorization,
+                                                                        @PathVariable("type") String type,
+                                                                        Pageable pageable) {
+        return new ResponseEntity<>(notificationService.findByType(type, pageable), HttpStatus.OK);
+    }
 }

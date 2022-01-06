@@ -20,6 +20,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,6 +97,43 @@ public class NotificationServiceImpl implements NotificationService {
             }
         }
         Page<NotificationDto> notificationDtoPage = new PageImpl<>(foundNotifications);
+        return notificationDtoPage;
+    }
+
+    @Override
+    public Page<NotificationDto> findByEmail(String email, Pageable pageable) {
+        List<Notification> notificationList = new ArrayList<>();
+        notificationList = notificationRepository.findNotificationByEmail(email);
+
+        List<NotificationDto> foundNotifications = new ArrayList<>();
+
+        for(Notification notification : notificationList)
+            foundNotifications.add(notificationMapper.notificationToNotificationDto(notification));
+
+        Page<NotificationDto> notificationDtoPage = new PageImpl<>(foundNotifications);
+        return notificationDtoPage;
+    }
+
+    @Override
+    public Page<NotificationDto> findByType(String type, Pageable pageable) {
+        List<Notification> notificationList = new ArrayList<>();
+        notificationList = notificationRepository.findAll();
+
+
+        List<Notification> foundNotifications = new ArrayList<>();
+
+        for(Notification notification: notificationList){
+            if(notification.getType().getType().toString().equalsIgnoreCase(type)){
+                foundNotifications.add(notification);
+            }
+        }
+
+        List<NotificationDto> toReturn = new ArrayList<>();
+
+        for(Notification notification : foundNotifications)
+            toReturn.add(notificationMapper.notificationToNotificationDto(notification));
+
+        Page<NotificationDto> notificationDtoPage = new PageImpl<>(toReturn);
         return notificationDtoPage;
     }
 

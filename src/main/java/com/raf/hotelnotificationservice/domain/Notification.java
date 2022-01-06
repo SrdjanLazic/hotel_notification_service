@@ -1,8 +1,10 @@
 package com.raf.hotelnotificationservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Entity
 public class Notification {
@@ -13,10 +15,13 @@ public class Notification {
     @ManyToOne(optional = false)
     private NotificationType type;
     private String email;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy",timezone = "GMT+1")
+    private Instant instant;
 
     public Notification(String email, NotificationType type) {
         this.email = email;
         this.type = type;
+        this.instant = Instant.now();
     }
 
     public Notification() {
@@ -48,5 +53,13 @@ public class Notification {
 
     public void setType(NotificationType type) {
         this.type = type;
+    }
+
+    public Instant getInstant() {
+        return instant;
+    }
+
+    public void setInstant(Instant instant) {
+        this.instant = instant;
     }
 }
