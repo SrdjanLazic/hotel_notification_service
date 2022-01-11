@@ -8,6 +8,7 @@ import com.raf.hotelnotificationservice.exception.NotFoundException;
 import com.raf.hotelnotificationservice.mapper.NotificationMapper;
 import com.raf.hotelnotificationservice.repository.NotificationRepository;
 import com.raf.hotelnotificationservice.service.NotificationService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +20,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.*;
 
 @Service
 @Transactional
@@ -102,7 +108,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Page<NotificationDto> findByEmail(String email, Pageable pageable) {
-        List<Notification> notificationList = new ArrayList<>();
+        List<Notification> notificationList;
         notificationList = notificationRepository.findNotificationByEmail(email);
 
         List<NotificationDto> foundNotifications = new ArrayList<>();
@@ -116,7 +122,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Page<NotificationDto> findByType(String type, Pageable pageable) {
-        List<Notification> notificationList = new ArrayList<>();
+        List<Notification> notificationList;
         notificationList = notificationRepository.findAll();
 
 
@@ -126,6 +132,37 @@ public class NotificationServiceImpl implements NotificationService {
             if(notification.getType().getType().toString().equalsIgnoreCase(type)){
                 foundNotifications.add(notification);
             }
+        }
+
+        List<NotificationDto> toReturn = new ArrayList<>();
+
+        for(Notification notification : foundNotifications)
+            toReturn.add(notificationMapper.notificationToNotificationDto(notification));
+
+        Page<NotificationDto> notificationDtoPage = new PageImpl<>(toReturn);
+        return notificationDtoPage;
+    }
+
+    @Override
+    public Page<NotificationDto> findBetweenDates(String date1, String date2, Pageable pageable) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date1Formatted = LocalDate.parse(date1, dateTimeFormatter);
+        LocalDate date2Formatted = LocalDate.parse(date2, dateTimeFormatter);
+
+
+        List<Notification> notificationList = new ArrayList<>();
+        notificationList = notificationRepository.findAll();
+
+        List<Notification> foundNotifications = new ArrayList<>();
+
+        for(Notification notification: notificationList){
+            LocalDateTime ldt = notification.getInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            LocalDate notificationDateFormatted = LocalDate.parse(ldt.format(dateTimeFormatter), dateTimeFormatter);
+
+            if(notificationDateFormatted.isAfter(date1Formatted) && notificationDateFormatted.isBefore(date2Formatted)){
+                foundNotifications.add(notification);
+            }
+
         }
 
         List<NotificationDto> toReturn = new ArrayList<>();

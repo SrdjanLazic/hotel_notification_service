@@ -16,4 +16,6 @@ public interface NotificationService {
 
     Page<NotificationDto> findByType(String type, Pageable pageable);
 
+    Page<NotificationDto> findBetweenDates(String date1, String date2, Pageable pageable);
+
 }

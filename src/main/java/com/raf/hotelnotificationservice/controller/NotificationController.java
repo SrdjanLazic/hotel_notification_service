@@ -57,4 +57,12 @@ public class NotificationController {
                                                                         Pageable pageable) {
         return new ResponseEntity<>(notificationService.findByType(type, pageable), HttpStatus.OK);
     }
+
+    @GetMapping("/filter/between={date1},{date2}")
+    @CheckSecurity(roles = {"ROLE_ADMIN"})
+    public ResponseEntity<Page<NotificationDto>> getNotificationsBetweenDates(@RequestHeader("Authorization") String authorization,
+                                                                        @PathVariable("date1") String date1, @PathVariable("date2") String date2,
+                                                                        Pageable pageable) {
+        return new ResponseEntity<>(notificationService.findBetweenDates(date1, date2, pageable), HttpStatus.OK);
+    }
 }
