@@ -1,5 +1,5 @@
 package com.raf.hotelnotificationservice.domain;
 
 public enum Type {
-    EMAIL_VERIFICATION,PASSWORD_RESET
+    EMAIL_VERIFICATION,PASSWORD_RESET, TEST
 }
