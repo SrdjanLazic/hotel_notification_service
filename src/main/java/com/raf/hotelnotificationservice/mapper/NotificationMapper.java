@@ -20,7 +20,8 @@ public class NotificationMapper {
         notificationDto.setId(notification.getId());
         notificationDto.setMessage(notification.getMessage());
         notificationDto.setType(notification.getType());
-        notificationDto.setInstant(notification.getInstant());
+        //notificationDto.setInstant(notification.getInstant());
+        notificationDto.setDateCreated(notification.getDateCreated());
         return notificationDto;
     }
 }

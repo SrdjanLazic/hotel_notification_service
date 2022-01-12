@@ -156,8 +156,9 @@ public class NotificationServiceImpl implements NotificationService {
         List<Notification> foundNotifications = new ArrayList<>();
 
         for(Notification notification: notificationList){
-            LocalDateTime ldt = notification.getInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            LocalDate notificationDateFormatted = LocalDate.parse(ldt.format(dateTimeFormatter), dateTimeFormatter);
+//            LocalDateTime ldt = notification.getInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+//            LocalDate notificationDateFormatted = LocalDate.parse(ldt.format(dateTimeFormatter), dateTimeFormatter);
+            LocalDate notificationDateFormatted = notification.getDateCreated();
 
             if(notificationDateFormatted.isAfter(date1Formatted) && notificationDateFormatted.isBefore(date2Formatted)){
                 foundNotifications.add(notification);

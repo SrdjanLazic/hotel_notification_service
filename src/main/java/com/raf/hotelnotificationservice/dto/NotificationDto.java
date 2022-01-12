@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.Instant;
+import java.time.LocalDate;
 
 public class NotificationDto {
 
@@ -14,8 +15,10 @@ public class NotificationDto {
     private String message;
     private String email;
     private NotificationType type;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy",timezone = "GMT+1")
-    private Instant instant;
+//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy",timezone = "GMT+1")
+//    private Instant instant;
+    @JsonFormat(pattern="dd-MM-yyyy")
+    private LocalDate dateCreated;
 
     public NotificationDto() {
     }
@@ -52,11 +55,20 @@ public class NotificationDto {
         this.type = type;
     }
 
-    public Instant getInstant() {
-        return instant;
+//    public Instant getInstant() {
+//        return instant;
+//    }
+//
+//    public void setInstant(Instant instant) {
+//        this.instant = instant;
+//    }
+
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
     }
 
-    public void setInstant(Instant instant) {
-        this.instant = instant;
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }
